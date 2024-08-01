@@ -139,8 +139,8 @@
         <input type="email" id="email" required />
       </div>
       <div class="form-group">
-        <label for="phone">Phone:</label>
-        <input type="tel" id="phone" pattern="^\+\d{1,}$" required />
+        <label for="phone"> (include country code):</label>
+        <input type="tel" id="phone" pattern="\d{1,}$" required />
       </div>
       <div class="form-group">
         <label>Social Links:</label>
@@ -180,16 +180,14 @@
           />
         </div>
         <div class="profile">
-          <h1 id="preview-name">Noor Bichra</h1>
+          <h1 id="preview-name">John Doe</h1>
           <h2 id="preview-title">Account Manager</h2>
           <p>
-            <a id="preview-email" href="mailto:noor.bichra@gmail.com"
-              >noor.bichra@gmail.com</a
+            <a id="preview-email" href="mailto:contact@getout.sport"
+              >contact@getout.sport</a
             >
             <br />
-            <a id="preview-phone" href="tel:+33671223346"
-              >+(33) 6 71 22 33 46</a
-            >
+            <a id="preview-phone" href="tel:+33671223346">+33671223346</a>
           </p>
           <p class="social-links" id="preview-social-links">
             <a
@@ -252,7 +250,7 @@
           errorMessage = "Please enter a valid email address.";
         } else if (!validatePhone(phone)) {
           errorMessage =
-            "Please enter a valid phone number starting with + and without spaces.";
+            "Please enter a valid phone number: digits without spaces.";
         }
 
         if (errorMessage) {
@@ -260,6 +258,7 @@
           document.getElementById("error-message").style.display = "block";
           return;
         } else {
+          document.getElementById("error-message").textContent = "";
           document.getElementById("error-message").style.display = "none";
         }
 
@@ -267,8 +266,8 @@
         document.getElementById("preview-title").textContent = jobTitle;
         document.getElementById("preview-email").textContent = email;
         document.getElementById("preview-email").href = `mailto:${email}`;
-        document.getElementById("preview-phone").textContent = phone;
-        document.getElementById("preview-phone").href = `tel:${phone}`;
+        document.getElementById("preview-phone").textContent = `+${phone}`;
+        document.getElementById("preview-phone").href = `tel:+${phone}`;
 
         const linkedinCheck = document.getElementById("linkedin-check").checked;
         const linkedinUrl = document
@@ -316,7 +315,7 @@
       }
 
       function validatePhone(phone) {
-        const re = /^\+\d{1,}$/;
+        const re = /\d{1,}$/;
         return re.test(phone);
       }
 
@@ -411,6 +410,7 @@
           </body>
           </html>
         `;
+
         const blob = new Blob([fullHTML], { type: "text/html" });
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
