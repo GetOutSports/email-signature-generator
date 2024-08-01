@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Live Email Signature Editor</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Figtree:500,700"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <style>
+      body {
+        font-family: "Figtree", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 20px;
+        gap: 20px;
+      }
+      .form-container,
+      .preview-container {
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+      }
+      .form-container {
+        width: 300px;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      .form-group input[type="text"],
+      .form-group input[type="email"],
+      .form-group input[type="tel"] {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+      }
+      .form-group input[type="checkbox"] {
+        margin-right: 5px;
+      }
+      .content {
+        width: 600px;
+        margin: 0;
+        display: flex;
+        align-items: center;
+      }
+      .avatar {
+        flex: 0 0 auto;
+        width: 220px;
+      }
+      .avatar img {
+        width: 100%;
+        height: auto;
+      }
+      .profile {
+        flex: 1;
+        border-left: 4px solid #ff590b;
+        padding-left: 40px;
+        margin-left: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .profile h1 {
+        font-weight: bold;
+        color: #09162a;
+        font-size: 35px;
+        margin: 0px;
+        font-family: "Clash Display", sans-serif;
+        text-transform: capitalize;
+      }
+      .profile h2 {
+        font-size: 20px;
+        color: #09162a;
+        padding-bottom: 6px;
+        padding-top: 0px;
+        font-weight: 600;
+        margin: 0px;
+        font-family: "Figtree", sans-serif;
+        text-transform: capitalize;
+      }
+      .profile p {
+        line-height: 20px;
+        font-weight: 500;
+        font-size: 15px;
+        color: #000000;
+        margin-top: 10px;
+        font-family: "Figtree light", sans-serif;
+      }
+      .profile a {
+        color: #09162a;
+        text-decoration: none;
+        font-size: 15px;
+      }
+      .profile img {
+        height: 25px;
+      }
+      .social-links {
+        margin-left: 0;
+        margin-top: 5px;
+        margin-bottom: 0;
+        list-style: none;
+        padding: 0;
+      }
+      .download-btn {
+        display: block;
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #ff590b;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="form-container">
+      <h2>Edit Signature</h2>
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" required />
+      </div>
+      <div class="form-group">
+        <label for="job-title">Job Title:</label>
+        <input type="text" id="job-title" required />
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" required />
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" pattern="^\+\d{1,}$" required />
+      </div>
+      <div class="form-group">
+        <label>Social Links:</label>
+        <div>
+          <input type="checkbox" id="linkedin-check" /> LinkedIn
+          <input type="url" id="linkedin-url" placeholder="LinkedIn URL" />
+        </div>
+        <div>
+          <input type="checkbox" id="instagram-check" /> Instagram
+          <input type="url" id="instagram-url" placeholder="Instagram URL" />
+        </div>
+        <div>
+          <input type="checkbox" id="website-check" /> Website
+          <input type="url" id="website-url" placeholder="Website URL" />
+        </div>
+        <div>
+          <input type="checkbox" id="appstore-check" /> App Store
+          <input type="url" id="appstore-url" placeholder="App Store URL" />
+        </div>
+        <div>
+          <input type="checkbox" id="pitch-check" /> Pitch
+          <input type="url" id="pitch-url" placeholder="Pitch URL" />
+        </div>
+      </div>
+      <p id="error-message" style="color: red; display: none"></p>
+      <a href="#" class="download-btn" onclick="downloadSignature(event)"
+        >Download Signature</a
+      >
+    </div>
+    <div class="preview-container">
+      <h2>Signature Preview</h2>
+      <div class="content" id="signature-preview">
+        <div class="avatar">
+          <img
+            src="https://storage.googleapis.com/getout-emails-signature/go-full-blanc.png"
+            alt=""
+          />
+        </div>
+        <div class="profile">
+          <h1 id="preview-name">Noor Bichra</h1>
+          <h2 id="preview-title">Account Manager</h2>
+          <p>
+            <a id="preview-email" href="mailto:noor.bichra@gmail.com"
+              >noor.bichra@gmail.com</a
+            >
+            <br />
+            <a id="preview-phone" href="tel:+33671223346"
+              >+(33) 6 71 22 33 46</a
+            >
+          </p>
+          <p class="social-links" id="preview-social-links">
+            <a
+              id="preview-linkedin"
+              href="#"
+              target="_blank"
+              style="display: none"
+              ><img
+                src="https://storage.googleapis.com/getout-emails-signature/linkedin.svg"
+            /></a>
+            &nbsp;
+            <a
+              id="preview-instagram"
+              href="#"
+              target="_blank"
+              style="display: none"
+              ><img
+                src="https://storage.googleapis.com/getout-emails-signature/instagram.svg"
+            /></a>
+            &nbsp;
+            <a
+              id="preview-website"
+              href="#"
+              target="_blank"
+              style="display: none"
+              ><img
+                src="https://storage.googleapis.com/getout-emails-signature/website.svg"
+            /></a>
+            &nbsp;
+            <a
+              id="preview-appstore"
+              href="#"
+              target="_blank"
+              style="display: none"
+              ><img
+                src="https://storage.googleapis.com/getout-emails-signature/appstore.svg"
+            /></a>
+            &nbsp;
+            <a id="preview-pitch" href="#" target="_blank" style="display: none"
+              ><img
+                src="https://storage.googleapis.com/getout-emails-signature/pitch.svg"
+            /></a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function updatePreview() {
+        const name = document.getElementById("name").value.trim();
+        const jobTitle = document.getElementById("job-title").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+
+        let errorMessage = "";
+
+        if (!name || !jobTitle || !email || !phone) {
+          errorMessage = "Please fill out all fields.";
+        } else if (!validateEmail(email)) {
+          errorMessage = "Please enter a valid email address.";
+        } else if (!validatePhone(phone)) {
+          errorMessage =
+            "Please enter a valid phone number starting with + and without spaces.";
+        }
+
+        if (errorMessage) {
+          document.getElementById("error-message").textContent = errorMessage;
+          document.getElementById("error-message").style.display = "block";
+          return;
+        } else {
+          document.getElementById("error-message").style.display = "none";
+        }
+
+        document.getElementById("preview-name").textContent = name;
+        document.getElementById("preview-title").textContent = jobTitle;
+        document.getElementById("preview-email").textContent = email;
+        document.getElementById("preview-email").href = `mailto:${email}`;
+        document.getElementById("preview-phone").textContent = phone;
+        document.getElementById("preview-phone").href = `tel:${phone}`;
+
+        const linkedinCheck = document.getElementById("linkedin-check").checked;
+        const linkedinUrl = document
+          .getElementById("linkedin-url")
+          .value.trim();
+        document.getElementById("preview-linkedin").style.display =
+          linkedinCheck ? "inline" : "none";
+        document.getElementById("preview-linkedin").href = linkedinUrl;
+
+        const instagramCheck =
+          document.getElementById("instagram-check").checked;
+        const instagramUrl = document
+          .getElementById("instagram-url")
+          .value.trim();
+        document.getElementById("preview-instagram").style.display =
+          instagramCheck ? "inline" : "none";
+        document.getElementById("preview-instagram").href = instagramUrl;
+
+        const websiteCheck = document.getElementById("website-check").checked;
+        const websiteUrl = document.getElementById("website-url").value.trim();
+        document.getElementById("preview-website").style.display = websiteCheck
+          ? "inline"
+          : "none";
+        document.getElementById("preview-website").href = websiteUrl;
+
+        const appstoreCheck = document.getElementById("appstore-check").checked;
+        const appstoreUrl = document
+          .getElementById("appstore-url")
+          .value.trim();
+        document.getElementById("preview-appstore").style.display =
+          appstoreCheck ? "inline" : "none";
+        document.getElementById("preview-appstore").href = appstoreUrl;
+
+        const pitchCheck = document.getElementById("pitch-check").checked;
+        const pitchUrl = document.getElementById("pitch-url").value.trim();
+        document.getElementById("preview-pitch").style.display = pitchCheck
+          ? "inline"
+          : "none";
+        document.getElementById("preview-pitch").href = pitchUrl;
+      }
+
+      function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(String(email).toLowerCase());
+      }
+
+      function validatePhone(phone) {
+        const re = /^\+\d{1,}$/;
+        return re.test(phone);
+      }
+
+      function downloadSignature(event) {
+        event.preventDefault();
+        updatePreview();
+
+        const errorMessage =
+          document.getElementById("error-message").textContent;
+        if (errorMessage) return;
+
+        const signatureContent =
+          document.getElementById("signature-preview").outerHTML;
+        const fullHTML = `
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Email Signature</title>
+            <link href="https://fonts.googleapis.com/css?family=Figtree:500,700" rel="stylesheet" type="text/css">
+            <style>
+              .content {
+                width: 800px;
+                margin: 0;
+                display: flex;
+                align-items: center;
+                }
+                .avatar {
+                flex: 0 0 auto;
+                width: 220px;
+                }
+                .avatar img {
+                width: 100%;
+                height: auto;
+                }
+                .profile {
+                flex: 1;
+                border-left: 4px solid #FF590B;
+                padding-left: 40px;
+                margin-left: 20px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                }
+                .profile h1 {
+                font-weight: 600;
+                color: #09162A;
+                font-size: 35px;
+                margin: 0px;
+                font-family: 'Clash Display', 'Figtree', sans-serif;
+                text-transform: capitalize;
+                }
+                .profile h2 {
+                font-size: 20px;
+                color: #09162A;
+                padding-bottom: 6px;
+                padding-top: 0px;
+                font-weight: 700;
+                margin: 0px;
+                font-family: 'Figtree', sans-serif;
+                text-transform: capitalize;
+                }
+                .profile p {
+                line-height: 20px;
+                font-weight: 500;
+                font-size: 15px;
+                color: #000000;
+                margin-top: 10px;
+                font-family: 'Figtree', sans-serif;
+                }
+                .profile a {
+                color: #09162A;
+                text-decoration: none;
+                font-size: 15px;
+                }
+                .profile img {
+                height: 25px;
+                }
+                .social-links {
+                margin-left: 0;
+                margin-top: 5px;
+                margin-bottom: 0;
+                list-style: none;
+                padding: 0;
+                }
+            </style>
+          </head>
+          <body>
+            ${signatureContent}
+          </body>
+          </html>
+        `;
+        const blob = new Blob([fullHTML], { type: "text/html" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "signature.html";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+      document.querySelectorAll("input").forEach((input) => {
+        input.addEventListener("input", updatePreview);
+      });
+    </script>
+  </body>
+</html>
