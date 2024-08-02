@@ -20,12 +20,19 @@
         gap: 20px;
         background-color: #ddd;
       }
+      .preview-container h1 {
+        color: #ff590b;
+      }
       .form-container,
-      .preview-container {
+      .preview-container,
+      .additional-container {
         border: 1px solid #ddd;
         padding: 20px;
         border-radius: 5px;
         background-color: #fff;
+      }
+      .preview-container {
+        margin-bottom: 20px;
       }
       .form-container {
         width: 300px;
@@ -158,7 +165,7 @@
         <input type="email" id="email" required />
       </div>
       <div class="form-group">
-        <label for="phone"> (include country code):</label>
+        <label for="phone">Phone (include country code):</label>
         <input type="tel" id="phone" pattern="\d{1,}$" required />
       </div>
       <div class="form-group">
@@ -190,100 +197,104 @@
       >
       <div id="notification" class="notification"></div>
     </div>
-    <div class="preview-container">
-      <h2>Email Signature Generator</h2>
-      <p>
-        Fill the form, copy the signature then paste it in
-        <a href="https://mail.google.com/mail/u/0/#settings/general"
-          >Gmail Settings</a
-        >.
-      </p>
-      <p>
-        In Gmail Settings, check "Insert signature before quoted text in replies
-        and remove the "--" line that precedes it."
-      </p>
-      <h2>Email Preview</h2>
-      <p>Hi,</p>
-      <p>Just a quick note to keep you in the loop.</p>
-      <p>Best regards,</p>
-      <div class="content" id="signature-preview">
-        <table>
-          <tr>
-            <td class="avatar">
-              <img
-                src="https://storage.googleapis.com/getout-emails-signature/go-full-blanc.png"
-                alt="Avatar"
-              />
-            </td>
-            <td class="profile">
-              <h1 id="preview-name">John Doe</h1>
-              <h2 id="preview-title">Account Manager</h2>
-              <p>
-                <a id="preview-email" href="mailto:contact@getout.sport"
-                  >contact@getout.sport</a
-                >
-                <br />
-                <a id="preview-phone" href="tel:+33671223346">+33671223346</a>
-              </p>
-              <p class="social-links" id="preview-social-links">
-                <a
-                  id="preview-linkedin"
-                  href="#"
-                  target="_blank"
-                  style="display: none"
-                >
-                  <img
-                    src="https://storage.googleapis.com/getout-emails-signature/linkedin.png"
-                  />
-                </a>
-                &nbsp;
-                <a
-                  id="preview-instagram"
-                  href="#"
-                  target="_blank"
-                  style="display: none"
-                >
-                  <img
-                    src="https://storage.googleapis.com/getout-emails-signature/instagram.png"
-                  />
-                </a>
-                &nbsp;
-                <a
-                  id="preview-website"
-                  href="#"
-                  target="_blank"
-                  style="display: none"
-                >
-                  <img
-                    src="https://storage.googleapis.com/getout-emails-signature/website.png"
-                  />
-                </a>
-                &nbsp;
-                <a
-                  id="preview-appstore"
-                  href="#"
-                  target="_blank"
-                  style="display: none"
-                >
-                  <img
-                    src="https://storage.googleapis.com/getout-emails-signature/appstore.png"
-                  />
-                </a>
-                &nbsp;
-                <a
-                  id="preview-pitch"
-                  href="#"
-                  target="_blank"
-                  style="display: none"
-                >
-                  <img
-                    src="https://storage.googleapis.com/getout-emails-signature/pitch.png"
-                  />
-                </a>
-              </p>
-            </td>
-          </tr>
-        </table>
+    <div>
+      <div class="preview-container">
+        <h1>Email Signature Generator</h1>
+        <p>
+          Fill the form, copy the signature then paste it in
+          <a href="https://mail.google.com/mail/u/0/#settings/general"
+            >Gmail Settings</a
+          >.
+        </p>
+        <p>
+          In Gmail Settings, check "Insert signature before quoted text in
+          replies and remove the "--" line that precedes it."
+        </p>
+      </div>
+      <div class="additional-container">
+        <h2>Email Preview</h2>
+        <p>Hi,</p>
+        <p>Just a quick note to keep you in the loop.</p>
+        <p>Best regards,</p>
+        <div class="content" id="signature-preview">
+          <table>
+            <tr>
+              <td class="avatar">
+                <img
+                  src="https://storage.googleapis.com/getout-emails-signature/go-full-blanc.png"
+                  alt="Avatar"
+                />
+              </td>
+              <td class="profile">
+                <h1 id="preview-name">John Doe</h1>
+                <h2 id="preview-title">Account Manager</h2>
+                <p>
+                  <a id="preview-email" href="mailto:contact@getout.sport"
+                    >contact@getout.sport</a
+                  >
+                  <br />
+                  <a id="preview-phone" href="tel:+33671223346">+33671223346</a>
+                </p>
+                <p class="social-links" id="preview-social-links">
+                  <a
+                    id="preview-linkedin"
+                    href="#"
+                    target="_blank"
+                    style="display: none"
+                  >
+                    <img
+                      src="https://storage.googleapis.com/getout-emails-signature/linkedin.png"
+                    />
+                  </a>
+                  &nbsp;
+                  <a
+                    id="preview-instagram"
+                    href="#"
+                    target="_blank"
+                    style="display: none"
+                  >
+                    <img
+                      src="https://storage.googleapis.com/getout-emails-signature/instagram.png"
+                    />
+                  </a>
+                  &nbsp;
+                  <a
+                    id="preview-website"
+                    href="#"
+                    target="_blank"
+                    style="display: none"
+                  >
+                    <img
+                      src="https://storage.googleapis.com/getout-emails-signature/website.png"
+                    />
+                  </a>
+                  &nbsp;
+                  <a
+                    id="preview-appstore"
+                    href="#"
+                    target="_blank"
+                    style="display: none"
+                  >
+                    <img
+                      src="https://storage.googleapis.com/getout-emails-signature/appstore.png"
+                    />
+                  </a>
+                  &nbsp;
+                  <a
+                    id="preview-pitch"
+                    href="#"
+                    target="_blank"
+                    style="display: none"
+                  >
+                    <img
+                      src="https://storage.googleapis.com/getout-emails-signature/pitch.png"
+                    />
+                  </a>
+                </p>
+              </td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
 
